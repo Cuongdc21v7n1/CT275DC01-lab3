@@ -66,9 +66,9 @@ include_once __DIR__ . '/../src/partials/header.php';
             <a href="<?= 'edit.php?id=' . $contact->id ?>" class="btn btn-xs btn-warning">
                 <i alt="Edit" class="fa fa-pencil"></i> Edit
             </a>
-            <a href="#" class="btn btn-xs btn-danger ms-1">
-                <i alt="Delete" class="fa fa-trash"></i> Delete
-            </a>
+            <a href="<?= 'delete.php?id=' . $contact->id ?>" class="btn btn-xs btn-danger ms-1">
+				<i alt="Delete" class="fa fa-trash"></i> Delete
+			</a>
         </td>
     </tr>
     <?php endforeach ?>
