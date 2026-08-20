@@ -68,7 +68,29 @@ class Contact
 
         return $contacts;
     }
+	public function count(): int
+    {
+        $statement = $this->db->prepare('select count(*) from contacts');
+        $statement->execute();
+        return $statement->fetchColumn();
+    }
 
+    public function paginate(int $offset = 0, int $limit = 10): array
+    {
+        $contacts = [];
+        $statement = $this->db->prepare('select * from contacts limit :limit offset :offset');
+        $statement->bindValue(':offset', $offset, \PDO::PARAM_INT);
+        $statement->bindValue(':limit', $limit, \PDO::PARAM_INT);
+        $statement->execute();
+
+        while ($row = $statement->fetch()) {
+            $contact = new Contact($this->db);
+            $contact->fillFromDbRow($row);
+            $contacts[] = $contact;
+        }
+
+        return $contacts;
+    }
     protected function fillFromDbRow(array $row): Contact
     {
         $this->id = $row['id'];
